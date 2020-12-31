@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/welcome', function() { return view('welcome'); });
+
 Route::get('/', function() { return view('tasks.index'); })->name('tasks.showIndex');
 Route::get('/categories/create', function() { return view('categories.create'); })->name('categories.showCreate');
 Route::get('/categories/{id}/edit', function() { return view('categories.edit'); })->name('categories.showEdit');
