@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,9 +7,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <style>
-            html, body, a {
-                margin: 0;
-                height: 100vh;
+            html, body, a, input {
                 background-color: #fff;
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
@@ -21,7 +19,7 @@
             }
         </style>
     </head>
-    <body>
+    <body class="h-full">
         <div class="flex justify-center items-center text-center min-h-full">
             <div>
                 @yield('content')
