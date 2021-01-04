@@ -17,7 +17,7 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->char('title', 128);
             $table->foreignId('category_id')->constrained('categories');
-            $table->unsignedTinyInteger('completed');
+            $table->unsignedTinyInteger('completed')->default(0);
             $table->timestamps();
         });
 
