@@ -11,72 +11,71 @@ class TaskTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $seed = true;
+
     public function testShowIndex()
     {
-        $this->get(route('tasks.showIndex'))
-            ->assertViewIs('tasks.index')
-            ->assertViewHas('categories');
+        $this->get(route("tasks.showIndex"))
+            ->assertViewIs("tasks.index")
+            ->assertViewHas("categories");
     }
 
     public function testShowCreate()
     {
-        $this->seed();
-        $this->get(route('tasks.showCreate', ['id' => 1]))
-            ->assertViewIs('tasks.create');
+        $this->get(route("tasks.showCreate", ["id" => 1]))
+            ->assertViewIs("tasks.create");
     }
 
     public function testShowEdit()
     {
-        $this->seed();
-        $this->get(route('tasks.showEdit', ['id' => 1]))
-            ->assertViewIs('tasks.edit')
-            ->assertViewHas('task');
+        $this->get(route("tasks.showEdit", ["id" => 1]))
+            ->assertViewIs("tasks.edit")
+            ->assertViewHas("task");
     }
 
     public function testCreate()
     {
-        $this->seed();
-        $truth = [
-            'title' => 'TestCreate',
-            'completed' => 1
+        $categoryId = 2;
+        $input = [
+            "title" => "TestCreate",
+            "completed" => 1
         ];
-        $this->post(route('tasks.create', ['id' => 1]), [
-            'title' => $truth['title'],
-            'completed' => $truth['completed']
+        $this->post(route("tasks.create", ["id" => $categoryId]), [
+            "title" => $input["title"],
+            "completed" => $input["completed"]
         ])
-            ->assertRedirect(route('tasks.showIndex'));
-        $latest = Task::orderBy('id', 'DESC')->first();
-        $this->assertEquals($truth['title'], $latest['title']);
-        $this->assertEquals($truth['completed'], $latest['completed']);
+            ->assertRedirect(route("tasks.showIndex"));
+        $latest = Task::orderBy("id", "DESC")->first();
+        $this->assertEquals($input["title"], $latest["title"]);
+        $this->assertEquals($categoryId, $latest["category_id"]);
+        $this->assertEquals($input["completed"], $latest["completed"]);
     }
 
     public function testUpdate()
     {
-        $this->seed();
-        $id = 1;
-        $truth = [
-            'title' => 'TestUpdate',
-            'completed' => 1
+        $taskId = 1;
+        $input = [
+            "title" => "TestUpdate",
+            "completed" => 1
         ];
-        $before = Task::where('id', $id)->first();
-        $this->from(route('tasks.showEdit', ['id' => $id]))
-            ->post(route('tasks.update', ['id' => $id]), [
-                'title' => $truth['title'],
-                'completed' => $truth['completed']
+        $before = Task::where("id", $taskId)->first();
+        $this->from(route("tasks.showEdit", ["id" => $taskId]))
+            ->post(route("tasks.update", ["id" => $taskId]), [
+                "title" => $input["title"],
+                "completed" => $input["completed"]
             ])
-            ->assertRedirect(route('tasks.showIndex'));
+            ->assertRedirect(route("tasks.showIndex"));
         $after = $before->fresh();
-        $this->assertEquals($truth['title'], $after->title);
-        $this->assertEquals($truth['completed'], $after->completed);
+        $this->assertEquals($input["title"], $after->title);
+        $this->assertEquals($input["completed"], $after->completed);
     }
 
     public function testDelete()
     {
-        $this->seed();
-        $id = 1;
-        $task = Task::where('id', $id)->first();
-        $this->post(route('tasks.delete', ['id' => $id]))
-            ->assertRedirect(route('tasks.showIndex'));
+        $taskId = 1;
+        $task = Task::where("id", $taskId)->first();
+        $this->post(route("tasks.delete", ["id" => $taskId]))
+            ->assertRedirect(route("tasks.showIndex"));
         $this->assertDeleted($task);
     }
 }
