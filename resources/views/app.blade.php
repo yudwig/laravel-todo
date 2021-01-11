@@ -20,7 +20,7 @@
         </style>
     </head>
     <body class="h-full">
-        <div class="flex justify-center items-center text-center min-h-full">
+        <div class="flex justify-center items-center text-center min-h-full py-32">
             <div>
                 @yield('content')
             </div>
