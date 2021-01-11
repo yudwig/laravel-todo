@@ -31,7 +31,6 @@ class TaskController extends Controller
     {
         Task::create([
             "title" => $request->input("title"),
-            "completed" => $request->input("completed"),
             "category_id" => $categoryId
         ]);
         return redirect(route("tasks.showIndex"));

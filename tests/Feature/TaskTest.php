@@ -38,17 +38,15 @@ class TaskTest extends TestCase
         $categoryId = 2;
         $input = [
             "title" => "TestCreate",
-            "completed" => 1
         ];
         $this->post(route("tasks.create", ["id" => $categoryId]), [
             "title" => $input["title"],
-            "completed" => $input["completed"]
         ])
             ->assertRedirect(route("tasks.showIndex"));
         $latest = Task::orderBy("id", "DESC")->first();
         $this->assertEquals($input["title"], $latest["title"]);
         $this->assertEquals($categoryId, $latest["category_id"]);
-        $this->assertEquals($input["completed"], $latest["completed"]);
+        $this->assertEquals(0, $latest["completed"]);
     }
 
     public function testUpdate()
