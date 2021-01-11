@@ -2,13 +2,13 @@
 
 @section('content')
     <h2 class="text-2xl">タスク編集</h2>
-    <form name="updateForm" method="post" action="{{ route('tasks.update', ['id' => 1]) }}">
+    <form name="updateForm" method="post" action="{{ route('tasks.update', ['id' => $task->id]) }}">
         @csrf
         <label>
-            <input type="text" name="title" class="border my-5 p-1 w-80">
+            <input type="text" name="title" class="border my-5 p-1 w-80" value="{{$task->title}}">
         </label>
     </form>
-    <form name="deleteForm" method="post" action="{{ route('tasks.delete', ['id' => 1]) }}">
+    <form name="deleteForm" method="post" action="{{ route('tasks.delete', ['id' => $task->id]) }}">
         @csrf
     </form>
     <div class="flex justify-center">
