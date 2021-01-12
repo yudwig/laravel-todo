@@ -45,11 +45,11 @@ class TaskController extends Controller
             'title' => ['sometimes', 'required']
         ]);
         $task = Task::where("id", $taskId)->first();
-        if (isset($request["title"])) {
-            $task->title = $request["title"];
+        if ($request->has("title")) {
+            $task->title = $request->input("title");
         }
-        if (isset($request["completed"])) {
-            $task->completed = $request["completed"];
+        if ($request->has("completed")) {
+            $task->completed = $request->input("completed");
         }
         $task->save();
         return redirect(route("tasks.showIndex"));
