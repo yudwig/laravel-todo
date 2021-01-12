@@ -21,6 +21,9 @@ class CategoryController extends Controller
 
     public function create(Request $request)
     {
+        $request->validate([
+            'title' => ['required']
+        ]);
         Category::create([
             "title" => $request->input("title")
         ]);
@@ -29,6 +32,9 @@ class CategoryController extends Controller
 
     public function update(Request $request, $categoryId)
     {
+        $request->validate([
+            'title' => ['required']
+        ]);
         $category = Category::where("id", $categoryId)->first();
         $category->fill([
             "title" => $request->input("title")

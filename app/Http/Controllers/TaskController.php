@@ -29,6 +29,9 @@ class TaskController extends Controller
 
     public function create(Request $request, $categoryId)
     {
+        $request->validate([
+            'title' => ['required']
+        ]);
         Task::create([
             "title" => $request->input("title"),
             "category_id" => $categoryId
@@ -38,6 +41,9 @@ class TaskController extends Controller
 
     public function update(Request $request, $taskId)
     {
+        $request->validate([
+            'title' => ['sometimes', 'required']
+        ]);
         $task = Task::where("id", $taskId)->first();
         if (isset($request["title"])) {
             $task->title = $request["title"];

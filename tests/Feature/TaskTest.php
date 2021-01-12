@@ -40,13 +40,18 @@ class TaskTest extends TestCase
             "title" => "TestCreate",
         ];
         $this->post(route("tasks.create", ["id" => $categoryId]), [
-            "title" => $input["title"],
-        ])
+                "title" => $input["title"],
+            ])
             ->assertRedirect(route("tasks.showIndex"));
         $latest = Task::orderBy("id", "DESC")->first();
         $this->assertEquals($input["title"], $latest["title"]);
         $this->assertEquals($categoryId, $latest["category_id"]);
         $this->assertEquals(0, $latest["completed"]);
+
+        $this->post(route('tasks.create', ['id' => 1]), [
+                'title' => '',
+            ])
+            ->assertSessionHasErrors('title');
     }
 
     public function testUpdate()
@@ -66,6 +71,12 @@ class TaskTest extends TestCase
         $after = $before->fresh();
         $this->assertEquals($input["title"], $after->title);
         $this->assertEquals($input["completed"], $after->completed);
+
+        $this->from(route('tasks.showEdit', ['id' => 1]))
+            ->post(route('tasks.update', ['id' => 1]), [
+                'title' => '',
+            ])
+            ->assertSessionHasErrors('title');
     }
 
     public function testDelete()

@@ -22,6 +22,9 @@
     <body class="h-full">
         <div class="flex justify-center items-center text-center min-h-full py-32">
             <div>
+                @if ($errors->has('title'))
+                    <h3 class="text-red-400 text-2xl pb-4">{{ $errors->first('title') }}</h3>
+                @endif
                 @yield('content')
             </div>
         </div>

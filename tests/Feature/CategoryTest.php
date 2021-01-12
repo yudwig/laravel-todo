@@ -37,6 +37,11 @@ class CategoryTest extends TestCase
             ->assertRedirect(route("tasks.showIndex"));
         $latest = Category::orderBy("id", "DESC")->first();
         $this->assertEquals($input["title"], $latest["title"]);
+
+        $this->post(route('categories.create'), [
+                'title' => ''
+            ])
+            ->assertSessionHasErrors('title');
     }
 
     public function testUpdate()
@@ -51,6 +56,11 @@ class CategoryTest extends TestCase
             ->assertRedirect(route("tasks.showIndex"));
         $after = Category::where("id", $categoryId)->first();
         $this->assertEquals($input["title"], $after["title"]);
+
+        $this->post(route('categories.update', ['id' => 1]), [
+                'title' => ''
+            ])
+            ->assertSessionHasErrors('title');
     }
 
     public function testDelete()
