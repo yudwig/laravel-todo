@@ -32,8 +32,8 @@ class CategoryTest extends TestCase
             "title" => "TestCreate"
         ];
         $this->post(route("categories.create"), [
-            "title" => $input["title"]
-        ])
+                "title" => $input["title"]
+            ])
             ->assertRedirect(route("tasks.showIndex"));
         $latest = Category::orderBy("id", "DESC")->first();
         $this->assertEquals($input["title"], $latest["title"]);
@@ -51,8 +51,8 @@ class CategoryTest extends TestCase
             "title" => "TestUpdate"
         ];
         $this->post(route("categories.update", ["id" => $categoryId]), [
-            "title" => $input["title"]
-        ])
+                "title" => $input["title"]
+            ])
             ->assertRedirect(route("tasks.showIndex"));
         $after = Category::where("id", $categoryId)->first();
         $this->assertEquals($input["title"], $after["title"]);
