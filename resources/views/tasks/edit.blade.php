@@ -5,7 +5,7 @@
     <form name="updateForm" method="post" action="{{ route('tasks.update', ['id' => $task->id]) }}">
         @csrf
         <label>
-            <input type="text" name="title" class="border my-5 p-1 w-80" value="{{$task->title}}">
+            <input type="text" name="title" class="border my-5 p-2 w-80" value="{{$task->title}}">
         </label>
     </form>
     <form name="deleteForm" method="post" action="{{ route('tasks.delete', ['id' => $task->id]) }}">

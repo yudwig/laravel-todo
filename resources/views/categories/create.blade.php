@@ -5,7 +5,7 @@
     <form name="createForm" method="post" action="{{ route('categories.create') }}">
         @csrf
         <label>
-            <input type="text" name="title" class="border my-5 p-1 w-80">
+            <input type="text" name="title" class="border my-5 p-2 w-80">
         </label>
     </form>
     <div>

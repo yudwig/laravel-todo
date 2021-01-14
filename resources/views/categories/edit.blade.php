@@ -5,7 +5,7 @@
     <form name="updateForm" method="post" action="{{ route('categories.update', ['id' => $category->id]) }}">
         @csrf
         <label>
-            <input type="text" name="title" class="border my-5 p-1 w-80" value="{{$category->title}}">
+            <input type="text" name="title" class="border my-5 p-2 w-80" value="{{$category->title}}">
         </label>
     </form>
     <form name="deleteForm" method="post" action="{{ route('categories.delete', ['id' => $category->id]) }}">
